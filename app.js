@@ -26,7 +26,7 @@ const handleCommand = ({ add, remove, list }) => {
 
 const handleData = (type, title) => {
 	const database = fs.readFileSync('database.json');
-	const tasks = JSON.parse(database);
+	let tasks = JSON.parse(database);
 	// console.log(tasks);
 
 	if (type === 1 || type === 2) {
@@ -41,6 +41,11 @@ const handleData = (type, title) => {
 	let dataJSON = '';
 	switch (type) {
 		case 1:
+			tasks = tasks.map((task, index) => ({
+				id: index + 1,
+
+				title: task.title
+			}));
 			console.log('dodaje zadnaie');
 			const id = tasks.length + 1;
 			tasks.push({ id, title });
@@ -51,6 +56,11 @@ const handleData = (type, title) => {
 			break;
 
 		case 2:
+			tasks = tasks.map((task, index) => ({
+				id: index + 1,
+
+				title: task.title
+			}));
 			const index = tasks.findIndex(task => task.title === title);
 			dataJSON = JSON.stringify(tasks);
 			tasks.splice(index, 1);
@@ -61,7 +71,13 @@ const handleData = (type, title) => {
 			break;
 
 		case 3:
-			console.log('wyświetla liste');
+			console.log(`Lista zadań do zrobienia obejmuje ${tasks.length} pozycji do zrobienia`);
+			if (tasks.length) {
+				tasks.forEach((task, index) => {
+					if (index % 2) return console.log(task.title.green);
+					return console.log(task.title.yellow);
+				});
+			}
 			break;
 	}
 };
