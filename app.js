@@ -13,8 +13,8 @@ const handleCommand = ({ add, remove, list }) => {
 		}
 		handleData(1, add);
 	} else if (remove) {
-		if (typeof remove === 'string' || remove.length > 7) {
-			console.log('Wpisz nazwę usuwanego zadania tekst musi mieć typie więcej niż 7 znaków'.red);
+		if (typeof remove === 'string') {
+			console.log('chyba usuwa'.red);
 			handleData(2, remove);
 		}
 	} else if (list || list === '') {
@@ -27,7 +27,7 @@ const handleCommand = ({ add, remove, list }) => {
 const handleData = (type, title) => {
 	const database = fs.readFileSync('database.json');
 	const tasks = JSON.parse(database);
-	console.log(tasks);
+	// console.log(tasks);
 
 	if (type === 1 || type === 2) {
 		isExisted = tasks.find(task => task.title === title) ? true : false;
@@ -38,13 +38,30 @@ const handleData = (type, title) => {
 		}
 	}
 
+	let dataJSON = '';
 	switch (type) {
 		case 1:
 			console.log('dodaje zadnaie');
+			const id = tasks.length + 1;
+			tasks.push({ id, title });
+			console.log(tasks);
+			dataJSON = JSON.stringify(tasks);
+			fs.writeFileSync('database.json', dataJSON);
+			console.log(`dodaj zadnaie ${title}`.white.bgGreen);
 			break;
 
 		case 2:
-			console.log('usuwam zadnaie');
+			const index = tasks.findIndex(task => task.title === title);
+			dataJSON = JSON.stringify(tasks);
+			tasks.splice(index, 1);
+			fs.writeFile('database.json', dataJSON, 'utf-8', err => {
+				if (err) throw err;
+				console.log(`Zadanie ${title} zostało usniete`);
+			});
+			break;
+
+		case 3:
+			console.log('wyświetla liste');
 			break;
 	}
 };
