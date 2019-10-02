@@ -1,0 +1,25 @@
+{
+  "name": "nodejs_command",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "color": "^3.1.2",
+    "colors": "^1.4.0",
+    "minimist": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KacperDrewniak/nodeJs_command.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KacperDrewniak/nodeJs_command/issues"
+  },
+  "homepage": "https://github.com/KacperDrewniak/nodeJs_command#readme"
+}
